@@ -62,7 +62,7 @@ public class CardGame implements Runnable {
      * @param number
      * @return
      */
-    public Boolean isValid(int number) {
+    public static Boolean isValid(int number) {
         if (number < 1) {
             return false;
         }
@@ -75,7 +75,7 @@ public class CardGame implements Runnable {
      * @param numOfPlayers
      * @return
      */
-    public Card[] createCards(int numOfPlayers) {
+    public static Card[] createCards(int numOfPlayers) {
         Card[] cardList = new Card[8*numOfPlayers];
 
         //Creating enough cards for the game

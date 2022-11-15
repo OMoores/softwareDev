@@ -29,7 +29,7 @@ public class Player {
     }
 
 
-    public Player() {
-        
+    public Player(int cardValue) {
+        this.cardValue = cardValue;
     }
 }

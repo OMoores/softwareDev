@@ -5,6 +5,10 @@ public class Card {
     
     private int cardValue;
 
+    /**
+     * Constructor for card, parameter is the card value of the card
+     * @param cardValue
+     */
     public Card(int cardValue) {
         this.cardValue = cardValue;
     }
