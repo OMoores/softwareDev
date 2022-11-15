@@ -40,17 +40,21 @@ public class CardGame implements Runnable {
 
         //Creating players and decks
         for (int i = 0; i < userNum; i++) {
-            //Creating players and setting take and discard pile
+            //Creating players and decks
             players[i] = new Player(i);
             cardDecks[i] = new CardDeck();
-            players[i].setTakePile(cardDecks[i]);
-            
-            if (i == userNum - 1) {
-                players[i].setDiscardPile(cardDecks[0]);
-            } else {
-                players[i].setDiscardPile(cardDecks[i+1]);
-            }
         }
+
+
+        //Setting discard and take piles
+        players[0].setTakePile(cardDecks[userNum-1]);
+        players[0].setDiscardPile(cardDecks[0]);
+        for (int i = 1; i < userNum; i++) {
+            players[i].setTakePile(cardDecks[i-1]);
+            players[i].setDiscardPile(cardDecks[i]);
+        }
+
+        
     }
 
     /**
@@ -65,10 +69,33 @@ public class CardGame implements Runnable {
 
         return true;
     }
+
+    /**
+     * Returns a pack full of 8* number of players cards
+     * @param numOfPlayers
+     * @return
+     */
+    public Card[] createCards(int numOfPlayers) {
+        Card[] cardList = new Card[8*numOfPlayers];
+
+        //Creating enough cards for the game
+        for (int cardIndex = 0; cardIndex < (8*numOfPlayers); cardIndex++) {
+            cardList[cardIndex] = new Card(cardIndex / numOfPlayers);
+        }
+
+        return cardList;
+    }
+
+    /**Creates cards and assigns their values based on the number of players input into function
+     * @param numOfPlayers
+     */
+    /*public Card[] createCards(int noOfPlayers) {
+    }*/
     
     public void run() {
         System.out.println("Thread");
     }
+
 
     public static void main(String[] args) {
       
