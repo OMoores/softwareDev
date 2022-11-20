@@ -3,7 +3,22 @@ public class Player {
     private int cardValue;
     private CardDeck discardPile;
     private CardDeck takeFromPile;
+    private CardDeck cards = new CardDeck();
     
+    public CardDeck getCards() {
+        return this.cards;
+    }
+
+    /**
+     * Adds card to player card hand, to be used when setting up, not during game
+     * @param card
+     */
+    public void addCard(Card card) {
+        this.cards.addCard(card);
+    }
+
+
+
     public void setCardValue(int cardValue) {
         this.cardValue = cardValue;
     }
