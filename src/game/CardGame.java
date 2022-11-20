@@ -11,15 +11,19 @@ public class CardGame implements Runnable {
      * Constructor for new cardgame
      * @param playerNo - the number of players
      */
-    public CardGame(int playerNo) {
-        
+    public CardGame(Player[] players, CardDeck[] cardDecks) {
+        this.players = players;
+        this.cardDecks = cardDecks;
     }
+
+
+
 
     /**
      * Takes user input for number of players and creates card game
      * @param playerNo
      */
-    public void createCardGame(int playerNo) {
+    public CardGame createCardGame(int playerNo) {
         Scanner scanner = new Scanner(System.in);
 
         //Indicates if user input is valid
@@ -89,6 +93,8 @@ public class CardGame implements Runnable {
         }
 
 
+        
+        return new CardGame(players, cardDecks);
         
     }
 
