@@ -16,10 +16,10 @@ public class CardGame implements Runnable {
         this.players = players;
         this.cardDecks = cardDecks;
 
-        //Prints out starting hand of all players
+        //Writes starting hand of players to file
         int[][] startingHand = getPlayersHand();
         for (int i = 0; i < players.length; i++) {
-            System.out.println("Player "+i+" starting hand: "+startingHand[i]);
+            players[i].getFileHandler().startingHand(startingHand[i]);
         }
 
         //Will hold the int of the winner player, if no one has won the value is set to -1
@@ -35,6 +35,8 @@ public class CardGame implements Runnable {
             //Checks if anyone has won
             winner = hasWon();
         }
+
+        
 
         
 

@@ -1,13 +1,26 @@
 package game;
+
+import java.io.File;
+
 public class Player implements Runnable {
     private int cardValue;
     private CardDeck discardPile;
     private CardDeck takeFromPile;
     private CardDeck cards = new CardDeck();
+    private FileHandler fileHandler;
     
  
     public Player(int cardValue) {
         this.cardValue = cardValue;
+        fileHandler = new FileHandler(cardValue, takeFromPile.getNum(), discardPile.getNum());
+    }
+
+    /**
+     * Returns the players fileHandler
+     * @return
+     */
+    public FileHandler getFileHandler() {
+        return this.fileHandler;
     }
 
     /**
@@ -16,16 +29,16 @@ public class Player implements Runnable {
     public void run() {
         //Discard a card => find which card they will discard
         Card discardCard = cards.findCardDiscard(this.cardValue);
-            //Prints out what is discarded where
-        System.out.println("Player " + cardValue + " has discarded a " + discardCard.getCardValue() + " to deck " + discardPile.getNum());
+        //Writes to file what card has been discarded
+        fileHandler.playerDiscards(discardCard.getCardValue());
         discardPile.discardCard(discardCard);
 
 
         //Collect card 
         Card takenCard = takeFromPile.takeCard();
         cards.addCard(takenCard);
-            //Prints out what is taken from where
-        System.out.println("Player " + cardValue + " has taken a " + takenCard.getCardValue() + " to deck " + takeFromPile.getNum());
+        //Prints out what is taken from where to file
+        fileHandler.playerDraws(takenCard.getCardValue());
 
 
    
