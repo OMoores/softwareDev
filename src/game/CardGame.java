@@ -1,4 +1,5 @@
 package game;
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -8,15 +9,74 @@ public class CardGame implements Runnable {
     CardDeck[] cardDecks;
 
     /**
-     * Constructor for new cardgame
+     * Constructor for new cardgame, creates the object and runs the game
      * @param playerNo - the number of players
      */
     public CardGame(Player[] players, CardDeck[] cardDecks) {
         this.players = players;
         this.cardDecks = cardDecks;
+
+        //Prints out starting hand of all players
+        int[][] startingHand = getPlayersHand();
+        for (int i = 0; i < players.length; i++) {
+            System.out.println("Player "+i+" starting hand: "+startingHand[i]);
+        }
+
+        //Will hold the int of the winner player, if no one has won the value is set to -1
+        int winner = hasWon();
+        //Whilst no one has won plays the game
+        while (winner < 0) {
+            
+           
+            for (int i = 0;i < players.length;) {
+                //Runs player threads to simulate them playing the game
+                players[i].run();
+            }
+            //Checks if anyone has won
+            winner = hasWon();
+        }
+
+        
+
     }
 
+    /**
+     * Returns a list of all of the players hands
+     * @return
+     */
+    public int[][] getPlayersHand() {
+        //A list of lists containing each of the players hands
+        int[][] hands = new int[players.length][4];
 
+        for (int i = 0; i < players.length;i++) {
+            for (int z = 0; z < 4; z++) {
+                //Gets the player carddeck, then gets the cards from the deck then gets the value of the card
+                hands[i][z] = players[i].getCards().getCards()[z].getCardValue();
+            }
+        }
+
+        return hands;
+    }
+
+    /**
+     * Thread
+     */
+    public void run() {
+        System.out.println("Thread");
+    }
+
+    /**
+     * Checks if any of the players have won and returns the int of the first player to win, if none have won returns -1
+     * @return
+     */
+    public int hasWon() {
+        for (int i = 0; i < players.length;i++) {
+            if (players[i].hasWon() == true) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
 
     /**
@@ -65,6 +125,8 @@ public class CardGame implements Runnable {
             //Creating players and decks
             players[i] = new Player(i);
             cardDecks[i] = new CardDeck();
+            //Setting the decks designation (for when printing out what card is given/taken from what deck)
+            cardDecks[i].setNum(i);
         }
 
 
@@ -199,9 +261,7 @@ public class CardGame implements Runnable {
     /*public Card[] createCards(int noOfPlayers) {
     }*/
     
-    public void run() {
-        System.out.println("Thread");
-    }
+    
 
 
     public static void main(String[] args) {
