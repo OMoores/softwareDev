@@ -1,18 +1,21 @@
 package game;
+
+
 import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
 public class CardGame implements Runnable {
-    Player[] players;
+    game.Player[] players;
     CardDeck[] cardDecks;
 
     /**
      * Constructor for new cardgame, creates the object and runs the game
-     * @param playerNo - the number of players
+     * 
      */
-    public CardGame(Player[] players, CardDeck[] cardDecks) {
+    public CardGame(game.Player[] players, CardDeck[] cardDecks) {
         this.players = players;
         this.cardDecks = cardDecks;
 
@@ -82,10 +85,10 @@ public class CardGame implements Runnable {
 
 
     /**
-     * Takes user input for number of players and creates card game
-     * @param playerNo
+     * Creates an instance of the CardGame object which runs the game
+     * @return
      */
-    public CardGame createCardGame(int playerNo) {
+    public static CardGame createCardGame() {
         Scanner scanner = new Scanner(System.in);
 
         //Indicates if user input is valid
@@ -111,7 +114,7 @@ public class CardGame implements Runnable {
             packPath = scanner.nextLine();
 
             //Checks if valid, if not asks for another to be entered
-            if (checkValidPack(packPath, playerNo)) {
+            if (checkValidPack(packPath, userNum)) {
                 validInput = true;
             } else {
                 System.out.println("Pack either could not be found or was not valid, please enter another");
@@ -140,19 +143,19 @@ public class CardGame implements Runnable {
             players[i].setDiscardPile(cardDecks[i]);
         }
 
-        Card[] cardList = getListFromPack(packPath, playerNo);
+        Card[] cardList = getListFromPack(packPath, userNum);
         //Filling in players cards 
         for (int i = 0; i < userNum; i++) {
-            for (int playerIndex = 0; playerIndex < playerNo; playerIndex++) {
-                players[playerIndex].addCard(cardList[i*playerNo + playerIndex]);
+            for (int playerIndex = 0; playerIndex < userNum; playerIndex++) {
+                players[playerIndex].addCard(cardList[i*userNum + playerIndex]);
             }
         }
 
         //Filling in deck cards
         for (int i = 0; i < userNum; i++) {
-            for (int deckIndex = 0; deckIndex < playerNo; deckIndex++) {
+            for (int deckIndex = 0; deckIndex < userNum; deckIndex++) {
                 //Fills in card decks, starting at the point in cardList that would have been emptied assigning cards to players
-                cardDecks[deckIndex].addCard(cardList[i*playerNo + deckIndex + 4*playerNo - 1]);
+                cardDecks[deckIndex].addCard(cardList[i*userNum + deckIndex + 4*userNum - 1]);
             }
         }
 
@@ -267,7 +270,7 @@ public class CardGame implements Runnable {
 
 
     public static void main(String[] args) {
-      
+        createCardGame();
     }
 
     
