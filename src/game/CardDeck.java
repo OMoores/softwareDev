@@ -9,7 +9,13 @@ public class CardDeck {
     }
 
     public void discardCard(Card discardedCard) {
-        cardList[3] = discardedCard;
+
+        for (int i = 0; i < 4; i++) {
+            if (cardList[i] == null) {
+                cardList[i] = discardedCard;
+            }
+        }
+
     }
 
     public void setNum(int deckNum) {

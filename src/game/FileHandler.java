@@ -67,6 +67,29 @@ public class FileHandler {
     }
 
     /**
+     * Prints CardDeck to text file, only used for troubleshooting program
+     * 
+     * @param deck
+     */
+    public void printDeck(CardDeck cardDeck) {
+        String deck = "Printing deck " + cardDeck.getNum() + ": ";
+        for (int i = 0; i < 4; i++) {
+            deck += cardDeck.getCards()[i].getCardValue() + " ";
+        }
+
+        try {
+            writerFile.write(deck + "\n");
+            // Saves to file and opens another file writer that appends to file
+            writerFile.close();
+            writerFile = new FileWriter(this.path, true);
+
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    /**
      * Writes to file what card a player has drawn and from where
      * 
      * @param card

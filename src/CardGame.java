@@ -20,12 +20,23 @@ public class CardGame implements Runnable {
 
     }
 
-    public void playGame() {
+    /**
+     * Writes all of the players current hands to the file
+     */
+    public void writeAllStartingHands() {
         // Writes starting hand of players to file
         int[][] startingHand = getPlayersHand();
         for (int i = 0; i < players.length; i++) {
             players[i].getFileHandler().startingHand(startingHand[i]);
         }
+
+    }
+
+    /**
+     * Commences playing of the game
+     */
+    public void playGame() {
+        writeAllStartingHands();
 
         // Will hold the int of the winner player, if no one has won the value is set to
         // -1
@@ -39,6 +50,8 @@ public class CardGame implements Runnable {
             }
             // Checks if anyone has won
             winner = hasWon();
+
+            // writeAllStartingHands();
         }
 
         for (int i = 0; i < players.length; i++) {
