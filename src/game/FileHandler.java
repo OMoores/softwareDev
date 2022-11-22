@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import javax.xml.catalog.Catalog;
+import java.io.BufferedWriter;
 
 public class FileHandler {
     int player;
@@ -13,6 +14,7 @@ public class FileHandler {
     int discardDeck;
     File handlderFile;
     FileWriter writerFile;
+    String path;
 
     /**
      * FileHandler constructor, each player has a file handler that automatically
@@ -24,14 +26,14 @@ public class FileHandler {
         this.discardDeck = discardDeck;
 
         try {
-            String path = "outputs/player" + this.player + "_output.txt";
+            this.path = "outputs/player" + this.player + "_output.txt";
             // Making sure file exists and is empty
             handlderFile = new File(path);
             handlderFile.delete();
             handlderFile.createNewFile();
 
             // Used to handle writing to file
-            writerFile = new FileWriter(path);
+            writerFile = new FileWriter(this.path);
 
         } catch (IOException e) {
             System.out.print(e);
@@ -52,9 +54,15 @@ public class FileHandler {
         }
 
         try {
-            writerFile.write("Player " + player + " starting hand: " + strHand + "\n");
-        } catch (IOException e) {
+            // System.out.print(strHand);
 
+            writerFile.write("Player " + player + " starting hand: " + strHand + "\n");
+            // Saves to file and opens another file writer that appends to file
+            writerFile.close();
+            writerFile = new FileWriter(this.path, true);
+
+        } catch (IOException e) {
+            System.out.print(e);
         }
     }
 
@@ -66,9 +74,11 @@ public class FileHandler {
     public void playerDraws(int card) {
         try {
             writerFile.write("Player " + player + " has taken a " + card + " from deck " + drawDeck + "\n");
+            writerFile.close();
+            writerFile = new FileWriter(this.path, true);
 
         } catch (IOException e) {
-
+            System.out.print(e + "\n");
         }
     }
 
@@ -80,9 +90,11 @@ public class FileHandler {
     public void playerDiscards(int card) {
         try {
             writerFile.write("Player " + player + " has discarded a " + card + " to deck " + discardDeck + "\n");
+            writerFile.close();
+            writerFile = new FileWriter(this.path, true);
 
         } catch (IOException e) {
-
+            System.out.print(e + "\n");
         }
     }
 
@@ -98,12 +110,16 @@ public class FileHandler {
                 // For if the current player wins
 
                 writerFile.write("Player " + player + " wins\n");
+                writerFile.close();
+                writerFile = new FileWriter(this.path, true);
 
             } else {
                 // For if another player wins
                 writerFile.write(
                         "Player " + winner + " has informed player " + player + " that player " + winner
                                 + " has won\n");
+                writerFile.close();
+                writerFile = new FileWriter(this.path, true);
             }
 
             writerFile.close();
@@ -119,6 +135,8 @@ public class FileHandler {
     public void playerExits() {
         try {
             writerFile.write("Player " + player + " has left the game\n");
+            writerFile.close();
+
         } catch (IOException e) {
 
         }

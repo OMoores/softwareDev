@@ -33,7 +33,7 @@ public class CardGame implements Runnable {
         // Whilst no one has won plays the game
         while (winner < 0) {
 
-            for (int i = 0; i < players.length;) {
+            for (int i = 0; i < players.length; i++) {
                 // Runs player threads to simulate them playing the game
                 players[i].run();
             }

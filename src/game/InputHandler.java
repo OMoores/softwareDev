@@ -26,7 +26,7 @@ public class InputHandler {
      * @return
      */
     public static int getPlayerNum() {
-
+        // NEED TO MAKE ABLE TO HANDLE STRINGS
         // Indicates if user input is valid
         Boolean validInput = false;
         int userNum = 0;
