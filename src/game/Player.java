@@ -34,7 +34,7 @@ public class Player implements Runnable {
     /**
      * Thread simulates a players go
      */
-    public void run() {
+    public synchronized void run() {
         // Discard a card => find which card they will discard
         Card discardCard = cards.findCardDiscard(this.cardValue);
         // Writes to file what card has been discarded

@@ -54,6 +54,7 @@ public class InputHandler {
         String packPath = "";
         while (!validInput) {
 
+            packPath = scanner.nextLine();
             System.out.println("Enter the path to a valid card pack");
             packPath = scanner.nextLine();
 

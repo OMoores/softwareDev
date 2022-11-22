@@ -24,17 +24,17 @@ public class FileHandler {
         this.discardDeck = discardDeck;
 
         try {
-
+            String path = "outputs/player" + this.player + "_output.txt";
             // Making sure file exists and is empty
-            handlderFile = new File("outputs/player" + this.player + "_output.txt");
+            handlderFile = new File(path);
             handlderFile.delete();
             handlderFile.createNewFile();
 
-            // Used to andle writing to file
-            writerFile = new FileWriter("outputs/player" + this.player + "_output.txt");
+            // Used to handle writing to file
+            writerFile = new FileWriter(path);
 
         } catch (IOException e) {
-
+            System.out.print(e);
         }
 
     }
@@ -45,8 +45,14 @@ public class FileHandler {
      * @param hand
      */
     public void startingHand(int[] hand) {
+        String strHand = "" + hand[0];
+
+        for (int i = 1; i < hand.length; i++) {
+            strHand += (" " + hand[i]);
+        }
+
         try {
-            writerFile.write("Player " + player + " starting hand: " + hand);
+            writerFile.write("Player " + player + " starting hand: " + strHand + "\n");
         } catch (IOException e) {
 
         }
@@ -59,7 +65,7 @@ public class FileHandler {
      */
     public void playerDraws(int card) {
         try {
-            writerFile.write("Player " + player + " has taken a " + card + " from deck " + drawDeck);
+            writerFile.write("Player " + player + " has taken a " + card + " from deck " + drawDeck + "\n");
 
         } catch (IOException e) {
 
@@ -73,7 +79,7 @@ public class FileHandler {
      */
     public void playerDiscards(int card) {
         try {
-            writerFile.write("Player " + player + " has discarded a " + card + " to deck " + discardDeck);
+            writerFile.write("Player " + player + " has discarded a " + card + " to deck " + discardDeck + "\n");
 
         } catch (IOException e) {
 
@@ -90,15 +96,20 @@ public class FileHandler {
 
             if (winner == player) {
                 // For if the current player wins
-                writerFile.write("Player " + player + " wins");
+
+                writerFile.write("Player " + player + " wins\n");
+
             } else {
                 // For if another player wins
                 writerFile.write(
-                        "Player " + winner + " has informed player " + player + " that player " + winner + " has won");
+                        "Player " + winner + " has informed player " + player + " that player " + winner
+                                + " has won\n");
             }
 
-        } catch (IOException e) {
+            writerFile.close();
 
+        } catch (IOException e) {
+            System.out.print(e);
         }
     }
 
@@ -107,7 +118,7 @@ public class FileHandler {
      */
     public void playerExits() {
         try {
-            writerFile.write("Player " + player + " has left the game");
+            writerFile.write("Player " + player + " has left the game\n");
         } catch (IOException e) {
 
         }

@@ -29,7 +29,7 @@ public class CardDeck {
         Card card = cardList[0];
 
         // Moves all items in list up one
-        for (int i = 0; i < cardList.length; i++) {
+        for (int i = 0; i < cardList.length - 1; i++) {
             cardList[i] = cardList[i + 1];
             cardList[i + 1] = null;
         }
@@ -55,30 +55,31 @@ public class CardDeck {
      * removes it from the deck and returns
      */
     public synchronized Card findCardDiscard(int cardType) {
+
         Card card = new Card(1);
-        Boolean found = false;
-        for (int i = 0; i < 4; i++) {
-            if (cardList[i].getCardValue() != cardType && found == false) {
+
+        // Find first card that isnt of card type
+        for (int i = 0; i < cardList.length; i++) {
+            // Finds first card that isnt of the cardType is returned
+            if (cardList[i].getCardValue() != cardType) {
                 card = cardList[i];
-                found = true;
-                // If card is not the last card move cards to fill empty position in list
-                if (i != 3) {
-                    cardList[i] = cardList[i + 1];
-                    cardList[i + 1] = null;
-
+                cardList[i] = null;
+                // Moves cards up after the one that has been removed
+                for (int z = i; z < 4; z++) {
+                    cardList[z] = cardList[z + 1];
+                    cardList[z + 1] = null;
                 }
 
-            } else if (found == true) {
-                if (i != 3) {
-                    cardList[i] = cardList[i + 1];
-                    cardList[i + 1] = null;
+                return card;
 
-                }
             }
 
         }
+        // Move up all other cards
+        // Return card
 
         return card;
+
     }
 
 }

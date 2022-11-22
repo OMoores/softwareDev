@@ -31,7 +31,7 @@ public class testCardDeck {
         assertEquals(deck.getNum(), 5);
     }
 
-    // Test adding cards to a deck until it is full
+    // Test adding cards to a deck until it is full, tests addCards and getCards
     @Test
     public void testAddGetCards() {
         // Creates a deck and fills it with cards
@@ -70,7 +70,9 @@ public class testCardDeck {
 
         // Checks every card is the correct value and every taken card is null
         for (int i = 0; i < 4; i++) {
-            assertEquals(deck.takeCard().getCardValue(), i);
+            Card card = deck.takeCard();
+            int val = card.getCardValue();
+            assertEquals(val, i);
             for (int z = 0; z < i + 1; z++) {
                 assertNull(deck.getCards()[4 - z]);
             }
@@ -78,6 +80,7 @@ public class testCardDeck {
 
     }
 
+    // Tests finding approprate cards to discard from a deck.
     @Test
     public void testFindCardDiscard() {
         // Creates a deck and fills it with cards
@@ -91,16 +94,24 @@ public class testCardDeck {
         deck.addCard(card3);
         deck.addCard(card4);
 
+        Card card = deck.findCardDiscard(0);
+        int val = card.getCardValue();
         // Should return card 1 and remove it from list
-        assertEquals(deck.findCardDiscard(0).getCardValue(), 1);
+        assertEquals(val, 1);
         // Testing to check that the card has been removed from list
         assertEquals(deck.getCards()[0].getCardValue(), 0);
+        assertEquals(deck.getCards()[1].getCardValue(), 2);
         assertNull(deck.getCards()[3]);
 
-        // should return card 0 and remove it from the middle of the list
+        // Testing to return card 0 and remove it from the middle of the list
         assertEquals(deck.findCardDiscard(2).getCardValue(), 0);
-        assertNull(deck.getCards()[2].getCardValue());
+        assertNull(deck.getCards()[2]);
         assertEquals(deck.getCards()[1].getCardValue(), 3);
+
+        // Testing to remove card from end of list, should return 2
+        assertEquals(deck.findCardDiscard(3).getCardValue(), 2);
+        assertNull(deck.getCards()[1]);
+        assertEquals(deck.getCards()[0].getCardValue(), 3);
 
     }
 

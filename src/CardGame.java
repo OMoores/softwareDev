@@ -40,6 +40,11 @@ public class CardGame implements Runnable {
             // Checks if anyone has won
             winner = hasWon();
         }
+
+        for (int i = 0; i < players.length; i++) {
+            players[i].getFileHandler().playerWins(winner);
+        }
+
     }
 
     /**
@@ -90,7 +95,6 @@ public class CardGame implements Runnable {
      * @return
      */
     public static CardGame createCardGame() {
-        Scanner scanner = new Scanner(System.in);
 
         // Gets the number of players in the game
         int userNum = InputHandler.getPlayerNum();
@@ -124,10 +128,11 @@ public class CardGame implements Runnable {
 
         Card[] cardList = getListFromPack(packPath, userNum);
         // Filling in players cards
-        for (int i = 0; i < userNum; i++) {
-            for (int playerIndex = 0; playerIndex < userNum; playerIndex++) {
-                players[playerIndex].addCard(cardList[i * userNum + playerIndex]);
+        for (int playerIndex = 0; playerIndex < userNum; playerIndex++) {
+            for (int cardIndex = 0; cardIndex < 4; cardIndex++) {
+                players[playerIndex].addCard(cardList[playerIndex * 4 + cardIndex]);
             }
+
         }
 
         // Filling in deck cards
@@ -179,17 +184,6 @@ public class CardGame implements Runnable {
             return null;
         }
     }
-
-    /**
-     * Creates cards and assigns their values based on the number of players input
-     * into function
-     * 
-     * @param numOfPlayers
-     */
-    /*
-     * public Card[] createCards(int noOfPlayers) {
-     * }
-     */
 
     public static void main(String[] args) {
         CardGame game = createCardGame();
