@@ -1,0 +1,22 @@
+Player 1 starting hand: 2 3 1 2
+Player 1 has discarded a 2 to deck 1
+Player 1 has taken a 3 from deck 0
+Player 1 has discarded a 3 to deck 1
+Player 1 has taken a 3 from deck 0
+Player 1 has discarded a 2 to deck 1
+Player 1 has taken a 3 from deck 0
+Player 1 has discarded a 3 to deck 1
+Player 1 has taken a 3 from deck 0
+Player 1 has discarded a 3 to deck 1
+Player 1 has taken a 2 from deck 0
+Player 1 has discarded a 3 to deck 1
+Player 1 has taken a 1 from deck 0
+Player 1 has discarded a 3 to deck 1
+Player 1 has taken a 2 from deck 0
+Player 1 has discarded a 2 to deck 1
+Player 1 has taken a 2 from deck 0
+Player 1 has discarded a 2 to deck 1
+Player 1 has taken a 1 from deck 0
+Player 1 has discarded a 2 to deck 1
+Player 1 has taken a 1 from deck 0
+Player 1 wins

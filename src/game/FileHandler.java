@@ -26,7 +26,7 @@ public class FileHandler {
         this.discardDeck = discardDeck;
 
         try {
-            this.path = "outputs/player" + this.player + "_output.txt";
+            this.path = "player" + this.player + "_output.txt";
             // Making sure file exists and is empty
             handlderFile = new File(path);
             handlderFile.delete();

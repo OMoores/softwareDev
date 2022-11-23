@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Random;
+
 public class CardDeck {
     Card[] cardList = new Card[5];
     int deckNum;
@@ -57,30 +59,43 @@ public class CardDeck {
     }
 
     /**
-     * Finds the first card that isnt the card type the player is looking for,
+     * Finds a random card that isnt the card type the player is looking for,
      * removes it from the deck and returns
      */
     public synchronized Card findCardDiscard(int cardType) {
 
         Card card = new Card(1);
 
-        // Find first card that isnt of card type
-        for (int i = 0; i < cardList.length; i++) {
-            // Finds first card that isnt of the cardType is returned
-            if (cardList[i].getCardValue() != cardType) {
-                card = cardList[i];
-                cardList[i] = null;
-                // Moves cards up after the one that has been removed
-                for (int z = i; z < 4; z++) {
-                    cardList[z] = cardList[z + 1];
-                    cardList[z + 1] = null;
-                }
+        Random rand = new Random();
+        int i = rand.nextInt(4);
+        int tries = 0;
 
-                return card;
+        while (tries < 1000000) {
+            // If requested card is null tries again
+            try {
+                cardList[i].getCardValue();
+                // Finds first card that isnt of the cardType is returned
+                if (cardList[i].getCardValue() != cardType) {
+                    card = cardList[i];
+                    cardList[i] = null;
+                    // Moves cards up after the one that has been removed
+                    for (int z = i; z < 4; z++) {
+                        cardList[z] = cardList[z + 1];
+                        cardList[z + 1] = null;
+                    }
+
+                    return card;
+
+                }
+            } catch (NullPointerException e) {
 
             }
 
+            i = rand.nextInt(4);
+            tries += 1;
+
         }
+
         // Move up all other cards
         // Return card
 
