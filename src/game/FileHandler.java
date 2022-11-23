@@ -166,6 +166,43 @@ public class FileHandler {
     }
 
     /**
+     * Gets a pack file and creates a list containing cards of the same value as the
+     * numbers in the pack file
+     * 
+     * @param path
+     * @return
+     */
+    public static Card[] getListFromPack(String path, int playerNum) {
+        Card[] list = new Card[8 * playerNum];
+
+        // Tries to read file
+        try {
+            // Reading file
+            File file = new File(path);
+            Scanner reader = new Scanner(file);
+
+            // Goes through file and adds card numbers to list
+            for (int i = 0; i < playerNum * 8; i++) {
+                String line = reader.nextLine();
+
+                // If line does not contain number pack is invalid
+                try {
+                    // Creates a card and adds it to list
+                    list[i] = new Card(Integer.parseInt(line));
+
+                } catch (NumberFormatException nf) {
+                    throw nf;
+                }
+            }
+
+            return list;
+
+        } catch (FileNotFoundException fnf) {
+            return null;
+        }
+    }
+
+    /**
      * Checks that the file path input is a file that can be read and is a valid
      * pack
      * May need to add something to check each player has enough cards to win

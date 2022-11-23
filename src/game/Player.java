@@ -103,5 +103,21 @@ public class Player implements Runnable {
         }
 
         return true;
+
+    }
+
+    /**
+     * Checks if any of the players have won and returns the int of the first player
+     * to win, if none have won returns -1
+     * 
+     * @return
+     */
+    public static int anyoneWon(Player[] players) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].hasWon() == true) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

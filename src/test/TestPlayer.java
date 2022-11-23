@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import game.*;
 
@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class testPlayer {
+public class TestPlayer {
 
     // Tests that player is successfully created
     @Test

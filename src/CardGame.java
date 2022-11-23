@@ -40,7 +40,7 @@ public class CardGame implements Runnable {
 
         // Will hold the int of the winner player, if no one has won the value is set to
         // -1
-        int winner = hasWon();
+        int winner = Player.anyoneWon(players);
         // Whilst no one has won plays the game
         while (winner < 0) {
 
@@ -49,7 +49,7 @@ public class CardGame implements Runnable {
                 players[i].run();
             }
             // Checks if anyone has won
-            winner = hasWon();
+            winner = Player.anyoneWon(players);
 
             // writeAllStartingHands();
         }
@@ -85,21 +85,6 @@ public class CardGame implements Runnable {
      */
     public void run() {
         System.out.println("Thread");
-    }
-
-    /**
-     * Checks if any of the players have won and returns the int of the first player
-     * to win, if none have won returns -1
-     * 
-     * @return
-     */
-    public int hasWon() {
-        for (int i = 0; i < players.length; i++) {
-            if (players[i].hasWon() == true) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     /**
@@ -139,7 +124,7 @@ public class CardGame implements Runnable {
             players[i].createFileHandler();
         }
 
-        Card[] cardList = getListFromPack(packPath, userNum);
+        Card[] cardList = FileHandler.getListFromPack(packPath, userNum);
         // Filling in players cards
         for (int playerIndex = 0; playerIndex < userNum; playerIndex++) {
             for (int cardIndex = 0; cardIndex < 4; cardIndex++) {
@@ -159,43 +144,6 @@ public class CardGame implements Runnable {
 
         return new CardGame(players, cardDecks);
 
-    }
-
-    /**
-     * Gets a pack file and creates a list containing cards of the same value as the
-     * numbers in the pack file
-     * 
-     * @param path
-     * @return
-     */
-    public static Card[] getListFromPack(String path, int playerNum) {
-        Card[] list = new Card[8 * playerNum];
-
-        // Tries to read file
-        try {
-            // Reading file
-            File file = new File(path);
-            Scanner reader = new Scanner(file);
-
-            // Goes through file and adds card numbers to list
-            for (int i = 0; i < playerNum * 8; i++) {
-                String line = reader.nextLine();
-
-                // If line does not contain number pack is invalid
-                try {
-                    // Creates a card and adds it to list
-                    list[i] = new Card(Integer.parseInt(line));
-
-                } catch (NumberFormatException nf) {
-                    throw nf;
-                }
-            }
-
-            return list;
-
-        } catch (FileNotFoundException fnf) {
-            return null;
-        }
     }
 
     public static void main(String[] args) {

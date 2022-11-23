@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import game.*;
 
@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class testCardDeck {
+public class TestCardDeck {
 
     // Tests creating a CardDeck
     @Test

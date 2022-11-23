@@ -1,4 +1,4 @@
-package tests;
+package test;
 
 import game.*;
 
@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
 
-public class testCard {
+public class TestCard {
 
     // Tests that a card is created by making sure if not negative
     @Test
