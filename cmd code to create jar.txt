@@ -1,0 +1,3 @@
+jar cvfe cards.jar CardGame .
+
+was executed in createJar folder

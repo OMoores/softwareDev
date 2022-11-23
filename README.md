@@ -1,0 +1,1 @@
+To run tests unzip the cardTest.zip file and run the runTests.sh script
